@@ -17,3 +17,11 @@
     This project would help me practice create, read, update, delete operations. I think that working with databases is
     interesting, especially representing that database with an interface. I also enjoy reading and listening to books.
     
+## User Stories
+
+- As a user, I want to be able to add some books to the library's catalogue
+- As a user, I want to be able to view a list of books in the catalogue
+- As a user, I want to be able to view the contents of a book
+- As a user, I want to be able to update a book in the catalogue
+- As a user, I want to be a ble to delete a book in the catalogue
+    
