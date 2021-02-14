@@ -23,5 +23,5 @@
 - As a user, I want to be able to view a list of books in the catalogue
 - As a user, I want to be able to view the contents of a book
 - As a user, I want to be able to update a book in the catalogue
-- As a user, I want to be a ble to delete a book in the catalogue
+- As a user, I want to be able to delete a book in the catalogue
     
