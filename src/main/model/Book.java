@@ -1,5 +1,6 @@
 package model;
 
+// Represents a book having a title author and body
 public class Book {
     String title;
     String author;
