@@ -1,26 +1,19 @@
 package model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BookTest {
-    private Book book;
-
-    @BeforeEach
-    void setup() {
-        book = new Book("", "", "");
-    }
+public class BookTest {
+    Book book;
 
     @Test
-    void setterGetterTest() {
-        book.setTitle("title");
-        book.setAuthor("author");
-        book.setBody("body");
+    void getterTest() {
+        book = new Book("title", "author", "body");
 
         assertEquals("title", book.getTitle());
         assertEquals("author", book.getAuthor());
         assertEquals("body", book.getBody());
+
     }
 }

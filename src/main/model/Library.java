@@ -7,19 +7,37 @@ public class Library {
     private ArrayList<Book> catalogue;
 
     public Library() {
-        catalogue = new ArrayList<Book>();
+        catalogue = new ArrayList<>();
     }
 
     // MODIFIES: this
-    // EFFECT: add book to the library
-    public void addBook(Book b) {
+    // EFFECT: add book to the library and return true if its title is not already in the library, false otherwise
+    public boolean addBook(Book b) {
+        for (Book existingBook : catalogue) {
+            String newBookTitle = b.getTitle();
+            String existingBookTitle = existingBook.getTitle();
+            if (newBookTitle.equals(existingBookTitle)) {
+                return false;
+            }
+        }
         catalogue.add(b);
+        return true;
     }
 
     // MODIFIES: this
-    // EFFECT: remove the book with given index from the library
-    public void removeBook(int index) {
-        catalogue.remove(index);
+    // EFFECT: remove indexed book and produce true if index is within size of catalogue
+    public boolean removeBook(int index) {
+        if (inRange(index)) {
+            catalogue.remove(index);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // EFFECTS: produce true if index is within range of catalogue
+    public boolean inRange(int index) {
+        return index >= 0 && index <= catalogue.size() - 1;
     }
 
     // EFFECTS: returns size of catalogue

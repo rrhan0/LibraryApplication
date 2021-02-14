@@ -1,6 +1,6 @@
 package ui;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 import model.Book;
 import model.Library;
 
@@ -22,13 +22,13 @@ public class LibraryApp {
     // EFFECTS: processes user input
     private void runLibrary() {
         boolean run = true;
-        String command = null;
+        String command;
 
         init();
 
         while (run) {
             displayMenu();
-            command = input.next();
+            command = input.nextLine();
 
             if (command.equals("5")) {
                 run = false;
@@ -57,56 +57,76 @@ public class LibraryApp {
         } else if (command.equals("4")) {
             doOpenBook();
         } else {
-            System.out.println("Option not valid.");
+            System.out.println("Invalid input.");
         }
     }
 
 
-
+    // MODIFIES: this
+    // EFFECTS: conducts a book adding
     private void doAddBook() {
         System.out.println("Enter the title:");
-        String title = input.next();
+        String title = input.nextLine();
         System.out.println("Enter the author's name:");
-        String author = input.next();
+        String author = input.nextLine();
         System.out.println("Enter the body:");
-        String body = input.next();
+        String body = input.nextLine();
 
-        library.addBook(new Book(title, author, body));
+        if (library.addBook(new Book(title, author, body))) {
+            System.out.println("Book added");
+        } else {
+            System.out.println("Failed to add book");
 
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: conducts a book removal
     private void doRemoveBook() {
-        doListBook();
         System.out.println("Enter the book's number");
-        int index = input.nextInt() - 1;
-        library.removeBook(index);
+        doListBook();
+        String select = input.nextLine();
+        if (isNumeric(select)) {
+            int index = Integer.parseInt(select) - 1;
+            if (library.removeBook(index)) {
+                System.out.println("Book removed");
+            } else {
+                System.out.println("Failed to remove book");
+            }
+        }
     }
 
     // EFFECTS: conducts a book list display
     private void doListBook() {
         ArrayList<Book> catalogue = library.getCatalogue();
 
-        int index = 1;
-        for (Book b : catalogue) {
-            System.out.println("\t" + index + ". " + b.getTitle());
-            index++;
+        if (library.getSize() == 0) {
+            System.out.println("The catalogue is empty");
+        } else {
+            int index = 1;
+            for (Book b : catalogue) {
+                System.out.println("\t" + index + ". " + b.getTitle());
+                index++;
+            }
         }
-        goBack();
     }
 
     // EFFECTS: conducts a book opening
     private void doOpenBook() {
         System.out.println("Select a book:");
         doListBook();
-        int index = input.nextInt() - 1;
-        Book book = library.getCatalogue().get(index);
 
-        System.out.println("\n" + book.getTitle() + " by " + book.getAuthor());
-        System.out.println("\n" + book.getBody());
-        goBack();
-
+        String select = input.nextLine();
+        if (isNumeric(select)) {
+            int index = Integer.parseInt(select) - 1;
+            if (library.inRange(index)) {
+                Book book = library.getCatalogue().get(index);
+                System.out.println("\n" + book.getTitle() + " by " + book.getAuthor());
+                System.out.println("\n" + book.getBody());
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
     }
 
     // EFFECTS: menu of options to user
@@ -119,17 +139,16 @@ public class LibraryApp {
         System.out.println("\t5. Quit");
     }
 
-    private void goBack() {
-        boolean stay = true;
-        while (stay) {
-            System.out.println("\nPress q to go back to menu");
-            String command = input.next();
-
-            if (command.equals("q")) {
-                stay = false;
-            } else {
-                System.out.println("Option not valid.");
-            }
+    // borrowed from https://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
+    // EFFECTS: produces true if string can be converted to int, false otherwise
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input");
+            return false;
         }
     }
+
 }
