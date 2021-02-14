@@ -54,6 +54,4 @@ public class Library {
     public ArrayList<Book> getCatalogue() {
         return catalogue;
     }
-
-
 }

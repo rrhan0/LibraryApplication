@@ -79,6 +79,5 @@ public class LibraryTest {
         library.addBook(book1);
         assertEquals(1, library.getCatalogue().size());
         assertTrue(library.getCatalogue().contains(book1));
-
     }
 }

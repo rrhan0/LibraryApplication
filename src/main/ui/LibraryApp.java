@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // Library Application
-// Code based on https://github.students.cs.ubc.ca/CPSC210/TellerApp
 public class LibraryApp {
     private Library library;
     private Scanner input;
@@ -20,6 +19,7 @@ public class LibraryApp {
 
     // MODIFIES: this
     // EFFECTS: processes user input
+    // Code based on https://github.students.cs.ubc.ca/CPSC210/TellerApp
     private void runLibrary() {
         boolean run = true;
         String command;
@@ -47,6 +47,7 @@ public class LibraryApp {
 
     // MODIFIES: this
     // EFFECTS: processes commands
+    // Code based on https://github.students.cs.ubc.ca/CPSC210/TellerApp
     private void processCommand(String command) {
         if (command.equals("1")) {
             doAddBook();
@@ -76,7 +77,6 @@ public class LibraryApp {
             System.out.println("Book added");
         } else {
             System.out.println("Failed to add book");
-
         }
     }
 
@@ -130,6 +130,7 @@ public class LibraryApp {
     }
 
     // EFFECTS: menu of options to user
+    // Code based on https://github.students.cs.ubc.ca/CPSC210/TellerApp
     private void displayMenu() {
         System.out.println("\nSelect an option:");
         System.out.println("\t1. Add book");
@@ -139,8 +140,8 @@ public class LibraryApp {
         System.out.println("\t5. Quit");
     }
 
-    // borrowed from https://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
     // EFFECTS: produces true if string can be converted to int, false otherwise
+    // borrowed from https://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
     private boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
@@ -150,5 +151,4 @@ public class LibraryApp {
             return false;
         }
     }
-
 }
