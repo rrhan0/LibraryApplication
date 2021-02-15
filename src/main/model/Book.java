@@ -26,4 +26,11 @@ public class Book {
     public String getBody() {
         return body;
     }
+
+    // EFFECTS: edits the contents of a book
+    public void editBook(String title, String author, String body) {
+        this.title = title;
+        this.author = author;
+        this.body = body;
+    }
 }

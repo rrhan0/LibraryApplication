@@ -7,61 +7,56 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
     Library library;
+    Book book1;
+    Book book2;
+    Book book3;
+
 
     @BeforeEach
     void setup() {
         library = new Library();
+        book1 = new Book("title", "author", "body");
+        book2 = new Book("title2", "author2", "body");
+        book3 = new Book("title3", "author3", "body3");
     }
 
     @Test
     void addBookTest() {
-        Book book1 = new Book("title", "author", "body");
-        assertTrue(library.addBook(book1));
+        assertEquals("Book added", library.addBook(book1));
         assertEquals(1, library.getSize());
         assertTrue(library.contains(book1));
 
-        Book book2 = new Book("title", "different author", "different body");
-        assertFalse(library.addBook(book2));
+        Book newBook = new Book("title", "different author", "different body");
+        assertEquals("This title already exists", library.addBook(newBook));
         assertEquals(1, library.getSize());
-        assertFalse(library.contains(book2));
+        assertFalse(library.contains(newBook));
 
-        Book book3 = new Book("different title", "author", "body");
-        assertTrue(library.addBook(book3));
+        assertEquals("Book added", library.addBook(book3));
         assertEquals(2, library.getSize());
         assertTrue(library.contains(book3));
     }
 
     @Test
     void removeBookTest() {
-        Book book1 = new Book("title", "author", "body");
         library.addBook(book1);
+        library.addBook(book2);
 
-        assertFalse(library.removeBook(1));
+        assertEquals("Index out of range", library.removeBook(-1));
+        assertEquals("Index out of range", library.removeBook(-5));
+        assertEquals("Index out of range", library.removeBook(2));
+        assertEquals("Index out of range", library.removeBook(5));
+        assertEquals(2, library.getSize());
+        assertTrue(library.contains(book1));
+        assertTrue(library.contains(book2));
+
+        assertEquals("Book removed", library.removeBook(1));
         assertEquals(1, library.getSize());
         assertTrue(library.contains(book1));
 
-        assertFalse(library.removeBook(20));
-        assertEquals(1, library.getSize());
-        assertTrue(library.contains(book1));
-
-        assertFalse(library.removeBook(-1));
-        assertEquals(1, library.getSize());
-        assertTrue(library.contains(book1));
-
-        assertFalse(library.removeBook(-20));
-        assertEquals(1, library.getSize());
-        assertTrue(library.contains(book1));
-
-        assertTrue(library.removeBook(0));
-        assertEquals(0, library.getSize());
-        assertFalse(library.contains(book1));
     }
 
     @Test
     void inRangeTest() {
-        Book book1 = new Book("title", "author", "body");
-        Book book2 = new Book("title2", "author", "body");
-
         library.addBook(book1);
         library.addBook(book2);
 
@@ -74,10 +69,46 @@ public class LibraryTest {
     }
 
     @Test
-    void getCatalogueTest() {
-        Book book1 = new Book("title", "author", "body");
+    void openBookTest() {
         library.addBook(book1);
-        assertEquals(1, library.getCatalogue().size());
-        assertTrue(library.getCatalogue().contains(book1));
+
+        assertEquals("Index out of range", library.openBook(1));
+        assertEquals("Index out of range", library.openBook(5));
+        assertEquals("Index out of range", library.openBook(-1));
+        assertEquals("Index out of range", library.openBook(-5));
+
+        assertEquals("title" + " by " + "author" + "\n\nbody", library.openBook(0));
     }
+
+    @Test
+    void listBookTest() {
+        assertEquals("The catalogue is empty", library.listBook());
+
+        library.addBook(book1);
+        assertEquals("1. title\n", library.listBook());
+
+        library.addBook(book2);
+        assertEquals("1. title\n2. title2\n", library.listBook());
+    }
+
+    @Test
+    void updateBookTest() {
+        library.addBook(book1);
+
+        assertEquals("Index out of range", library.updateBook("new title", "new author",
+                "new body", 1));
+        assertEquals("Index out of range", library.updateBook("new title", "new author",
+                "new body", -1));
+        assertEquals("Index out of range", library.updateBook("new title", "new author",
+                "new body", 4));
+        assertEquals("Index out of range", library.updateBook("new title", "new author",
+                "new body", -4));
+        assertEquals("title", book1.getTitle());
+
+        assertEquals("Book updated", library.updateBook("new title", "new author",
+                "new body", 0));
+        assertEquals("new title", book1.getTitle());
+    }
+
+
 }

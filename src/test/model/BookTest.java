@@ -15,4 +15,15 @@ public class BookTest {
         assertEquals("author", book.getAuthor());
         assertEquals("body", book.getBody());
     }
+
+    @Test void editBookTest() {
+        book = new Book("title", "author", "body");
+
+        book.editBook("Book name", "Richard", "Something");
+
+        assertEquals("Book name", book.getTitle());
+        assertEquals("Richard", book.getAuthor());
+        assertEquals("Something", book.getBody());
+
+    }
 }
