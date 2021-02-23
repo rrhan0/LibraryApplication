@@ -37,17 +37,17 @@ public class Library {
 
     // EFFECTS: produce string of index numbered list of book titles, or return empty
     public String listBook() {
-        StringBuilder bookList = new StringBuilder();
+        String bookList = "";
 
         int index = 1;
         for (Book b : catalogue) {
-            bookList.append(index).append(". ").append(b.getTitle()).append("\n");
+            bookList = index + ". " + b.getTitle() + "\n";
             index++;
         }
-        if (bookList.toString().equals("")) {
+        if (bookList.equals("")) {
             return "The catalogue is empty";
         } else {
-            return bookList.toString();
+            return bookList;
         }
     }
 
