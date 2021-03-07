@@ -27,7 +27,7 @@
 - As a user, I want to be able to delete a book in the catalogue
 
 **Phase 2**
-- As a user, I want to be able to save my library's catalogue to a file when I quit
-- As a user, I want to be able to load my library's catalogue to a file when I start
+- As a user, I want my library's catalogue to be saved automatically when I quit
+- As a user, I want my library's catalogue to be loaded automatically when I start the app
 
     

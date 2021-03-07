@@ -3,16 +3,25 @@ package ui;
 
 import model.Book;
 import model.Library;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // Library Application
 public class LibraryApp {
+    private static final String JSON_STORE = "./data/library.json";
     private Library library;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the library application
-    public LibraryApp() {
+    public LibraryApp() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runLibrary();
     }
 
@@ -29,7 +38,8 @@ public class LibraryApp {
             displayMenu();
             command = input.nextLine();
 
-            if (command.equals("6")) {
+            if (command.equals("q")) {
+                doSaveLibrary();
                 run = false;
             } else {
                 processCommand(command);
@@ -42,6 +52,7 @@ public class LibraryApp {
     private void init() {
         library = new Library();
         input = new Scanner(System.in);
+        doLoadLibrary();
     }
 
     // MODIFIES: this
@@ -72,7 +83,7 @@ public class LibraryApp {
         System.out.println("\t3. List book");
         System.out.println("\t4. Open book");
         System.out.println("\t5. Edit book");
-        System.out.println("\t6. Quit");
+        System.out.println("\tq. Quit");
     }
 
     // MODIFIES: this
@@ -140,6 +151,29 @@ public class LibraryApp {
             return Integer.parseInt(select) - 1;
         } else {
             return -1;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads library from file
+    public void doLoadLibrary() {
+        try {
+            library = jsonReader.read();
+            System.out.println("Loaded from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    // EFFECTS: loads workroom from file
+    public void doSaveLibrary() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(library);
+            jsonWriter.close();
+            System.out.println("Saved to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
 

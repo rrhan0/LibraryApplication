@@ -1,0 +1,14 @@
+{
+    "catalogue": [
+        {
+            "title": "Harry Potter",
+            "author": "JK Rowling",
+            "body": "magic"
+        },
+        {
+            "title": "the best book",
+            "author": "Richard",
+            "body": "this is the best book"
+        }
+    ]
+}

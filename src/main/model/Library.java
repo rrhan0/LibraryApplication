@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents a Library having a catalogue of books.
-public class Library {
+public class Library implements Writable {
     private ArrayList<Book> catalogue;
 
     public Library() {
@@ -37,17 +41,17 @@ public class Library {
 
     // EFFECTS: produce string of index numbered list of book titles, or return empty
     public String listBook() {
-        String bookList = "";
+        StringBuilder bookList = new StringBuilder();
 
         int index = 1;
         for (Book b : catalogue) {
-            bookList = index + ". " + b.getTitle() + "\n";
+            bookList.append(index).append(". ").append(b.getTitle()).append("\n");
             index++;
         }
-        if (bookList.equals("")) {
+        if (bookList.toString().equals("")) {
             return "The catalogue is empty";
         } else {
-            return bookList;
+            return bookList.toString();
         }
     }
 
@@ -86,5 +90,28 @@ public class Library {
     // EFFECTS: produces true if given book is in catalogue
     public boolean contains(Book b) {
         return catalogue.contains(b);
+    }
+
+    // EFFECTS: return catalogue of books
+    public ArrayList<Book> getCatalogue() {
+        return catalogue;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("catalogue", catalogueToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray catalogueToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Book b : catalogue) {
+            jsonArray.put(b.toJson());
+        }
+
+        return jsonArray;
     }
 }
