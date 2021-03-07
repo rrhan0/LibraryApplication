@@ -22,6 +22,7 @@ public class JsonReader {
     }
 
     // EFFECTS: reads workroom from file and returns it
+    // throws IOException if an error occurs reading data from file
     public Library read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
