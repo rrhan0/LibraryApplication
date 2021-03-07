@@ -165,7 +165,7 @@ public class LibraryApp {
         }
     }
 
-    // EFFECTS: loads workroom from file
+    // EFFECTS: saves library to file
     public void doSaveLibrary() {
         try {
             jsonWriter.open();

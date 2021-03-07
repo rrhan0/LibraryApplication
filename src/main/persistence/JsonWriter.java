@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-// Represents a writer that writes JSON representation of workroom to file
+// Represents a writer that writes JSON representation of library to file
 // CITATION: many parts from JsonSerializationDemo
 public class JsonWriter {
     private static final int TAB = 4;
@@ -28,7 +28,7 @@ public class JsonWriter {
 
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of library to file
     public void write(Library lib) {
         JSONObject json = lib.toJson();
         saveToFile(json.toString(TAB));

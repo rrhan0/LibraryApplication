@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-// Represents a reader that reads workroom from JSON data stored in file
+// Represents a reader that reads library from JSON data stored in file
 // CITATION: many parts from JsonSerializationDemo
 public class JsonReader {
     private String source;
@@ -21,7 +21,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it
+    // EFFECTS: reads library from file and returns it
     // throws IOException if an error occurs reading data from file
     public Library read() throws IOException {
         String jsonData = readFile(source);

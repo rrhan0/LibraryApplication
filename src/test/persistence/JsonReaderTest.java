@@ -35,7 +35,7 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderGeneralWorkRoom() {
+    void testReaderGeneralLibrary() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralLibrary.json");
         try {
             Library lib = reader.read();
