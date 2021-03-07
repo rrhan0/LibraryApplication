@@ -39,7 +39,7 @@ public class Library implements Writable {
         }
     }
 
-    // EFFECTS: produce string of index numbered list of book titles, or return empty
+    // EFFECTS: produce string of index numbered list of book titles, or return catalogue is empty
     public String listBook() {
         StringBuilder bookList = new StringBuilder();
 
@@ -55,7 +55,7 @@ public class Library implements Writable {
         }
     }
 
-    // EFFECTS: returns the contents of a book to read if index in range, error otherwise
+    // EFFECTS: returns the contents of a book to read if index in range, notify error otherwise
     public String openBook(int index) {
         if (inRange(index)) {
             Book book = catalogue.get(index);
@@ -66,7 +66,7 @@ public class Library implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: updates the contents of a book and returns the result
+    // EFFECTS: updates the contents of a book and returns the result if index in range, notify error otherwise
     public String updateBook(String title, String author, String body, int index) {
         if (inRange(index)) {
             Book book = catalogue.get(index);
@@ -104,7 +104,7 @@ public class Library implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns books in this library as a JSON array
     private JSONArray catalogueToJson() {
         JSONArray jsonArray = new JSONArray();
 
