@@ -1,12 +1,14 @@
-{"catalogue": [
-    {
-        "author": "Dmitry Glukhovsky",
-        "title": "Metro 2033",
-        "body": "In the Moscow metro"
-    },
-    {
-        "author": "Harry Turtledove",
-        "title": "The Big Switch",
-        "body": "WW2 but early"
-    }
-]}
+{
+    "catalogue": [
+        {
+            "author": "Dmitry Glukhovsky",
+            "title": "Metro 2033",
+            "body": "In the Moscow metro"
+        },
+        {
+            "author": "Harry Turtledove",
+            "title": "The Big Switch",
+            "body": "WW2 but early"
+        }
+    ]
+}
