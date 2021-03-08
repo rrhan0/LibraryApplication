@@ -1,9 +1,12 @@
-{
-    "catalogue": [
-        {
-            "author": "Richard",
-            "title": "Richard's Book",
-            "body": "This is my book."
-        }
-    ]
-}
+{"catalogue": [
+    {
+        "author": "Richard",
+        "title": "Richard's Book",
+        "body": "This is my book."
+    },
+    {
+        "author": "New Author",
+        "title": "New Book",
+        "body": "New New New"
+    }
+]}
