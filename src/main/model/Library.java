@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Library implements Writable {
     private ArrayList<Book> catalogue;
 
+    // EFFECTS: contructs a library with a catalogue of books
     public Library() {
         catalogue = new ArrayList<>();
     }
