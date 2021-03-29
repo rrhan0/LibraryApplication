@@ -30,4 +30,7 @@
 - As a user, I want my library's catalogue to be saved automatically when I quit
 - As a user, I want my library's catalogue to be loaded automatically when I start the app
 
+**Phase 3**
+- I've decided not to use autosave in my GUI and instead have buttons that load and save.
+
     
