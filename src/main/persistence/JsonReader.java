@@ -1,5 +1,6 @@
 package persistence;
 
+import exception.UniqueTitleException;
 import model.Book;
 import model.Library;
 import org.json.JSONArray;
@@ -64,6 +65,6 @@ public class JsonReader {
         String author = jsonObject.getString("author");
         String body = jsonObject.getString("body");
         Book book = new Book(title, author, body);
-        lib.addBook(book);
+        lib.getCatalogue().add(book);
     }
 }

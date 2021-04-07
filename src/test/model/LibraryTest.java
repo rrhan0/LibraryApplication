@@ -22,43 +22,91 @@ public class LibraryTest {
 
     @Test
     void addBookTest() {
-        assertEquals("Book added", library.addBook(book1));
-        assertEquals(1, library.getSize());
-        assertTrue(library.contains(book1));
+        try {
+            library.addBook(book1);
+            assertEquals(1, library.getSize());
+            assertTrue(library.contains(book1));
 
-        Book newBook = new Book("title", "different author", "different body");
-        assertEquals("This title already exists", library.addBook(newBook));
-        assertEquals(1, library.getSize());
-        assertFalse(library.contains(newBook));
+            library.addBook(book3);
+            assertEquals(2, library.getCatalogue().size());
+            assertTrue(library.contains(book3));
+        } catch (Exception e) {
+            fail("Exception not expected");
+        }
 
-        assertEquals("Book added", library.addBook(book3));
-        assertEquals(2, library.getSize());
-        assertTrue(library.contains(book3));
+        try {
+            Book newBook = new Book("title", "different author", "different body");
+            library.addBook(newBook);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+
+        try {
+            Book newBook = new Book("", "different author", "different body");
+            library.addBook(newBook);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
     }
 
     @Test
     void removeBookTest() {
-        library.addBook(book1);
-        library.addBook(book2);
+        try {
+            library.addBook(book1);
+            library.addBook(book2);
+        } catch (Exception e) {
+            fail("Exception not expected");
+        }
 
-        assertEquals("Index out of range", library.removeBook(-1));
-        assertEquals("Index out of range", library.removeBook(-5));
-        assertEquals("Index out of range", library.removeBook(2));
-        assertEquals("Index out of range", library.removeBook(5));
+        try {
+            library.removeBook(-1);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.removeBook(-5);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.removeBook(2);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.removeBook(5);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+
         assertEquals(2, library.getSize());
         assertTrue(library.contains(book1));
         assertTrue(library.contains(book2));
 
-        assertEquals("Book removed", library.removeBook(1));
-        assertEquals(1, library.getSize());
-        assertTrue(library.contains(book1));
+        try {
+            library.removeBook(1);
+            assertEquals(1, library.getSize());
+            assertTrue(library.contains(book1));
+        } catch (Exception e) {
+            fail("No exception expected");
+        }
 
     }
 
     @Test
     void inRangeTest() {
-        library.addBook(book1);
-        library.addBook(book2);
+        try {
+            library.addBook(book1);
+            library.addBook(book2);
+        } catch (Exception e) {
+            fail("Exception not expected");
+        }
 
         assertTrue(library.inRange(0));
         assertTrue(library.inRange(1));
@@ -70,44 +118,101 @@ public class LibraryTest {
 
     @Test
     void openBookTest() {
-        library.addBook(book1);
+        try {
+            library.addBook(book1);
+        } catch (Exception e) {
+            fail("Exception expected");
+        }
 
-        assertEquals("Index out of range", library.openBook(1));
-        assertEquals("Index out of range", library.openBook(5));
-        assertEquals("Index out of range", library.openBook(-1));
-        assertEquals("Index out of range", library.openBook(-5));
-
-        assertEquals("title" + " by " + "author" + "\n\nbody", library.openBook(0));
+        try {
+            library.openBook(1);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.openBook(5);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.openBook(-1);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.openBook(-5);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            assertEquals("title" + " by " + "author" + "\n\nbody", library.openBook(0));
+        } catch (Exception e) {
+            fail("Exception not expected");
+        }
     }
 
     @Test
     void listBookTest() {
-        assertEquals("The catalogue is empty", library.listBook());
-
-        library.addBook(book1);
-        assertEquals("1. title\n", library.listBook());
-
-        library.addBook(book2);
-        assertEquals("1. title\n2. title2\n", library.listBook());
+        try {
+            library.listBook();
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.addBook(book1);
+            assertEquals("1. title\n", library.listBook());
+            library.addBook(book2);
+            assertEquals("1. title\n2. title2\n", library.listBook());
+        } catch (Exception e) {
+            fail("Exception not expected");
+        }
     }
 
     @Test
     void updateBookTest() {
-        library.addBook(book1);
+        try {
+            library.addBook(book1);
+        } catch (Exception e) {
+            fail("Exception not expected");
+        }
 
-        assertEquals("Index out of range", library.updateBook("new title", "new author",
-                "new body", 1));
-        assertEquals("Index out of range", library.updateBook("new title", "new author",
-                "new body", -1));
-        assertEquals("Index out of range", library.updateBook("new title", "new author",
-                "new body", 4));
-        assertEquals("Index out of range", library.updateBook("new title", "new author",
-                "new body", -4));
+        try {
+            library.updateBook("new title", "new author", "new body", 1);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.updateBook("new title", "new author", "new body", -1);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.updateBook("new title", "new author", "new body", 4);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
+        try {
+            library.updateBook("new title", "new author", "new body", -4);
+            fail("Exception expected");
+        } catch (Exception e) {
+            // pass
+        }
         assertEquals("title", book1.getTitle());
 
-        assertEquals("Book updated", library.updateBook("new title", "new author",
-                "new body", 0));
-        assertEquals("new title", book1.getTitle());
+        try {
+            library.updateBook("new title", "new author", "new body", 0);
+            assertEquals("new title", book1.getTitle());
+        } catch (Exception e) {
+            fail("Exception not expected");
+        }
     }
 
 

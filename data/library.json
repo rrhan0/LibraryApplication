@@ -18,5 +18,15 @@
         "author": "Richard Han",
         "title": "Book of Suffering",
         "body": "University is hard, and I'm always tired. Will it get btter?"
+    },
+    {
+        "author": "Author",
+        "title": "Title",
+        "body": "Body"
+    },
+    {
+        "author": "Richard Han",
+        "title": "I am hungry",
+        "body": "I will eat dinner now"
     }
 ]}

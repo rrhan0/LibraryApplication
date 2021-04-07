@@ -33,4 +33,13 @@
 **Phase 3**
 - I've decided not to use autosave in my GUI and instead have buttons that load and save.
 
+**Phase 4: Task 2**
+- I will test and design my Library class to be robust
+
+**Phase 4: Task 3**
+- My UML diagram appears to be very simple without a lot of associations between classes. This is probably because my 
+  project is very simple. It doesn't look like I can improve the design any further because this is the bare minimum
+  required for a functioning project. If I had more time to do the project, make it more complex, add more features, 
+  then I would probably be able to refactor and improve my design because I might have more chances to make bad design 
+  decisions as the project continues.
     

@@ -9,7 +9,7 @@ public class Book implements Writable {
     String author;
     String body;
 
-    // EFFECTS: contructs a book with a title, author, an body
+    // EFFECTS: constructs a book with a title, author, an body
     public Book(String title, String author, String body) {
         this.title = title;
         this.author = author;

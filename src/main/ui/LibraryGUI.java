@@ -1,10 +1,11 @@
 package ui;
 
+import exception.IndexException;
+import exception.UniqueTitleException;
 import model.Book;
 import model.Library;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import sound.AudioPlayer;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -195,11 +196,9 @@ public class LibraryGUI extends JPanel implements ListSelectionListener {
         if (e.getValueIsAdjusting() == false) {
 
             if (list.getSelectedIndex() == -1) {
-                //No selection, disable fire button.
                 removeButton.setEnabled(false);
 
             } else {
-                //Selection, enable the fire button.
                 removeButton.setEnabled(true);
             }
         }
@@ -222,14 +221,15 @@ public class LibraryGUI extends JPanel implements ListSelectionListener {
             String author = authorField.getText();
             String body = bodyArea.getText();
 
-            if (title.equals("") || alreadyInList(title)) {
+            try {
+                library.addBook(new Book(title, author, body));
+            } catch (UniqueTitleException uniqueTitleException) {
                 Toolkit.getDefaultToolkit().beep();
                 titleField.requestFocusInWindow();
                 titleField.selectAll();
                 return;
             }
 
-            library.addBook(new Book(title, author, body));
             listModel.addElement(titleField.getText());
 
             titleField.requestFocusInWindow();
@@ -242,11 +242,6 @@ public class LibraryGUI extends JPanel implements ListSelectionListener {
             list.ensureIndexIsVisible(index);
 
             AudioPlayer.playSound(addSound);
-        }
-
-        // EFFECTS: returns true if title is already in list
-        private boolean alreadyInList(String title) {
-            return listModel.contains(title);
         }
     }
 
@@ -273,7 +268,11 @@ public class LibraryGUI extends JPanel implements ListSelectionListener {
             } else {
                 int index = list.getSelectedIndex();
                 listModel.remove(index);
-                library.removeBook(index);
+                try {
+                    library.removeBook(index);
+                } catch (IndexException indexException) {
+                    // index is not right
+                }
 
                 if (index == listModel.getSize()) {
                     index--;
@@ -300,6 +299,8 @@ public class LibraryGUI extends JPanel implements ListSelectionListener {
         // MODIFIES: LibraryGUI.this, this
         // EFFECTS: handles the loading of the library to the GUI
         public void actionPerformed(ActionEvent e) {
+            library.getCatalogue().clear();
+            listModel.clear();
             doLoadLibrary();
             updateListModel();
             button.setEnabled(false);

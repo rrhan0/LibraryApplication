@@ -46,8 +46,12 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralLibrary() {
         try {
             Library lib = new Library();
-            lib.addBook(new Book("Metro 2033", "Dmitry Glukhovsky", "In the Moscow metro"));
-            lib.addBook(new Book("The Big Switch", "Harry Turtledove", "WW2 but early"));
+            try {
+                lib.addBook(new Book("Metro 2033", "Dmitry Glukhovsky", "In the Moscow metro"));
+                lib.addBook(new Book("The Big Switch", "Harry Turtledove", "WW2 but early"));
+            } catch (Exception e) {
+                fail("Exception not expected");
+            }
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralLibrary.json");
             writer.open();
             writer.write(lib);

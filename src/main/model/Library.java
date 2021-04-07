@@ -1,5 +1,8 @@
 package model;
 
+import exception.EmptyListException;
+import exception.IndexException;
+import exception.UniqueTitleException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -16,65 +19,69 @@ public class Library implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECT: add book to the library if it has unique title and return result
-    public String addBook(Book b) {
+    // EFFECT: add book to the library if it has unique non-empty title,
+    //         otherwise throw UniqueTitleException
+    public void addBook(Book b) throws UniqueTitleException {
+        if (b.getTitle().equals("")) {
+            throw new UniqueTitleException();
+        }
         for (Book existingBook : catalogue) {
             String newBookTitle = b.getTitle();
             String existingBookTitle = existingBook.getTitle();
             if (newBookTitle.equals(existingBookTitle)) {
-                return "This title already exists";
+                throw new UniqueTitleException();
             }
         }
         catalogue.add(b);
-        return "Book added";
     }
 
     // MODIFIES: this
-    // EFFECT: remove indexed book and return string with result
-    public String removeBook(int index) {
+    // EFFECT: remove indexed book if index is appropriate,
+    //         throw IndexException otherwise
+    public void removeBook(int index) throws IndexException {
         if (inRange(index)) {
             catalogue.remove(index);
-            return "Book removed";
         } else {
-            return "Index out of range";
+            throw new IndexException();
         }
     }
 
-    // EFFECTS: produce string of index numbered list of book titles, or return catalogue is empty
-    public String listBook() {
+    // EFFECTS: produce string of index numbered list of book titles,
+    //          or throw EmptyListException if catalogue is empty
+    public String listBook() throws EmptyListException {
         StringBuilder bookList = new StringBuilder();
 
+        if (getSize() == 0) {
+            throw new EmptyListException();
+        }
         int index = 1;
         for (Book b : catalogue) {
             bookList.append(index).append(". ").append(b.getTitle()).append("\n");
             index++;
         }
-        if (bookList.toString().equals("")) {
-            return "The catalogue is empty";
-        } else {
-            return bookList.toString();
-        }
+        return bookList.toString();
     }
 
-    // EFFECTS: returns the contents of a book to read if index in range, notify error otherwise
-    public String openBook(int index) {
+    // EFFECTS: returns the contents of a book to read if index in range,
+    //          throw IndexException otherwise
+    public String openBook(int index) throws IndexException {
         if (inRange(index)) {
             Book book = catalogue.get(index);
             return book.getTitle() + " by " + book.getAuthor() + "\n\n" + book.getBody();
         } else {
-            return "Index out of range";
+            throw new IndexException();
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: updates the contents of a book and returns the result if index in range, notify error otherwise
-    public String updateBook(String title, String author, String body, int index) {
+    // EFFECTS: updates the contents of a book and returns the result if index in range,
+    //          throw IndexException otherwise
+    public void updateBook(String title, String author, String body, int index) throws IndexException {
         if (inRange(index)) {
             Book book = catalogue.get(index);
             book.editBook(title, author, body);
-            return "Book updated";
         } else {
-            return "Index out of range";
+            throw new IndexException();
         }
     }
 
@@ -93,11 +100,6 @@ public class Library implements Writable {
         return catalogue.contains(b);
     }
 
-    // EFFECTS: return catalogue of books
-    public ArrayList<Book> getCatalogue() {
-        return catalogue;
-    }
-
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -114,5 +116,10 @@ public class Library implements Writable {
         }
 
         return jsonArray;
+    }
+
+    // EFFECTS: returns the list of books in library
+    public ArrayList<Book> getCatalogue() {
+        return catalogue;
     }
 }

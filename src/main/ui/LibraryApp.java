@@ -96,7 +96,11 @@ public class LibraryApp {
         System.out.println("Enter the body:");
         String body = input.nextLine();
 
-        System.out.println(library.addBook(new Book(title, author, body)));
+        try {
+            library.addBook(new Book(title, author, body));
+        } catch (Exception e) {
+            System.out.println("This title isn't unique");
+        }
     }
 
     // MODIFIES: this
@@ -105,13 +109,21 @@ public class LibraryApp {
         int index = selectBook();
 
         if (index != -1) {
-            System.out.println(library.removeBook(index));
+            try {
+                library.removeBook(index);
+            } catch (Exception e) {
+                System.out.println("Index out of range");
+            }
         }
     }
 
     // EFFECTS: conducts a book listing
     private void doListBook() {
-        System.out.println(library.listBook());
+        try {
+            System.out.println(library.listBook());
+        } catch (Exception e) {
+            System.out.println("Catalogue is empty");
+        }
     }
 
     // EFFECTS: conducts a book opening
@@ -119,7 +131,11 @@ public class LibraryApp {
         int index = selectBook();
 
         if (index != -1) {
-            System.out.println(library.openBook(index));
+            try {
+                library.openBook(index);
+            } catch (Exception e) {
+                System.out.println("Index out of range");
+            }
         }
     }
 
@@ -136,7 +152,11 @@ public class LibraryApp {
             System.out.println("Enter the body:");
             String body = input.nextLine();
 
-            library.updateBook(title, author, body, index);
+            try {
+                library.updateBook(title, author, body, index);
+            } catch (Exception e) {
+                System.out.println("Index out of range");
+            }
         } else {
             System.out.println("Index out of range");
         }
