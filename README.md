@@ -35,6 +35,7 @@
 
 **Phase 4: Task 2**
 - I will test and design my Library class to be robust
+- addBook, removeBook, listBook, openBook, and updateBook have been made robust
 
 **Phase 4: Task 3**
 - My UML diagram appears to be very simple without a lot of associations between classes. This is probably because my 
