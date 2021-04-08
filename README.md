@@ -38,8 +38,9 @@
 
 **Phase 4: Task 3**
 - My UML diagram appears to be very simple without a lot of associations between classes. This is probably because my 
-  project is very simple. It doesn't look like I can improve the design any further because this is the bare minimum
-  required for a functioning project. If I had more time to do the project, make it more complex, add more features, 
-  then I would probably be able to refactor and improve my design because I might have more chances to make bad design 
-  decisions as the project continues.
+  project is very simple. For the most part, there isn't a lot of refactoring I can do to improve the design. However,
+  I could remove and replace the updateBook method in my Library class because that increases coupling between Library and Book
+  and also decreases the cohesion of Library. The methods in my Library also have some duplication, which I could
+  abstract. My LibraryGUI is a little messy, so I could probably break up some larger methods to improve
+  readability. Besides these, I am satisfied with the design of my project
     
