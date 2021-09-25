@@ -44,4 +44,6 @@
   and also decreases the cohesion of Library. The methods in my Library also have some duplication, which I could
   abstract. My LibraryGUI is a little messy, so I could probably break up some larger methods to improve
   readability. Besides these, I am satisfied with the design of my project
-    
+ ---
+### Example
+![image](https://user-images.githubusercontent.com/47070761/134758527-3de01e8c-4152-4392-9eb0-4b56ab832abb.png)
